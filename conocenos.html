@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css" type="text/css">
+    <link rel="shortcut icon" href="logo.jpeg" type="image/x-icon">
+    <title>Conócenos | Kiosko la Hormiga</title>
+    <style>
+        /* Estilos específicos para la página de Conócenos */
+        .conocenos-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            line-height: 1.8;
+            color: #444;
+        }
+        .conocenos-container h1 {
+            color: var(--primario);
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .valor-card {
+            padding: 20px;
+            background: var(--fondo);
+            border-radius: 10px;
+        }
+        .valor-card h3 {
+            color: var(--primario);
+            margin-bottom: 10px;
+        }
+        .img-conocenos {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<main class="container">
+    <div class="conocenos-container">
+        <h1>Sobre Nosotros</h1>
+
+        <img src="Portada grande.jpeg" alt="Kiosko La Hormiga" class="img-conocenos">
+
+        <p>
+            En el corazón de <strong>La Algaba</strong>, nació un pequeño rincón dedicado a repartir sonrisas y dulces momentos: <strong>El Kiosko La Hormiga</strong>. Lo que empezó como un punto de encuentro para los vecinos, hoy se transforma en una tienda online pensada para llevarte tus antojos favoritos directamente a casa.
+        </p>
+
+        <p>
+            Nos llaman "La Hormiga" porque, al igual que ellas, creemos en el trabajo constante, en cuidar los detalles y en que <strong>lo pequeño se hace grande</strong> cuando se hace con cariño. Nuestra misión es simple: ofrecerte la mayor variedad de chucherías, juguetes y bebidas frías con la cercanía de siempre, pero con la comodidad de la tecnología actual.
+        </p>
+
+        <div class="valores-grid">
+            <div class="valor-card">
+                <h3>🏠 Cercanía</h3>
+                <p>Somos tus vecinos. Conocemos tus gustos y nos esforzamos por darte el mejor trato.</p>
+            </div>
+            <div class="valor-card">
+                <h3>🍬 Variedad</h3>
+                <p>Desde las chuches de toda la vida hasta las últimas novedades en juguetes.</p>
+            </div>
+            <div class="valor-card">
+                <h3>🚀 Rapidez</h3>
+                <p>Sabemos que cuando hay un antojo, no puede esperar. Trabajamos para que llegue pronto.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="stylesheet.js"></script>
+</body>
+</html>

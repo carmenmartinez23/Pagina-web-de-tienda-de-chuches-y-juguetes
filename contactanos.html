@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css" type="text/css">
+    <link rel="shortcut icon" href="logo.jpeg" type="image/x-icon">
+    <title>Contacta con Nosotros | Kiosko la Hormiga</title>
+</head>
+<body>
+<main class="container">
+    <h1 style="text-align: center; margin-top: 30px;">¿Hablamos? 🐜</h1>
+    <p style="text-align: center; color: #666;">Estamos en La Algaba para lo que necesites.</p>
+
+    <div class="contacto-container">
+        <div class="info-contacto">
+            <h2>Datos de Contacto</h2>
+
+            <div class="dato-contacto">
+                <strong>📍 Ubicación</strong>
+                Plaza de la Hormiga, La Algaba, Sevilla.
+            </div>
+
+            <div class="dato-contacto">
+                <strong>📞 Teléfono / WhatsApp</strong>
+                +34 644 481 567
+            </div>
+
+            <div class="dato-contacto">
+                <strong>⏰ Horario</strong>
+                Domingo a jueves:17:45 - 20:45<br>
+                Viernes y sábados: 17:45 - 00:45
+            </div>
+
+            <div class="mapa-ficticio">
+                <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.9864420998697!2d-6.012497823680514!3d37.461042030169644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126bd935de4a63%3A0xe8bcd7049c5ff2c5!2sKiosko%20La%20Hormiga!5e0!3m2!1ses!2ses!4v1777376417964!5m2!1ses!2ses"
+                        width="1200"
+                        height="250"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="formulario-contacto">
+            <h2>Envíanos un mensaje</h2>
+            <form action="#">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Tu nombre..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">¿En qué podemos ayudarte?</label>
+                    <textarea id="mensaje" placeholder="Escribe tu duda o pedido aquí..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+</main>
+<script src="stylesheet.js"></script>
+</body>
+</html>
