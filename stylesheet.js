@@ -196,3 +196,49 @@ function actualizarStorage() {
 }
 
 window.onload = cargarProductos;
+
+function mostrarDetalles(id) {
+    // Ocultamos todos los detalles primero
+    document.querySelectorAll('.detalles-metodo').forEach(div => {
+        div.classList.remove('active');
+    });
+    // Mostramos solo el que nos interesa
+    document.getElementById(id).classList.add('active');
+}
+
+function procesarPedidoReal(event) {
+    event.preventDefault();
+
+    const nombre = document.getElementById('nombre-cliente').value;
+    const direccion = document.getElementById('direccion-cliente').value;
+    const metodo = document.querySelector('input[name="pago"]:checked').value;
+
+    if (metodo === 'bizum') {
+        const telBizum = document.getElementById('telefono-bizum').value;
+        enviarPedidoWhatsApp(nombre, direccion, "Bizum (" + telBizum + ")");
+    } else if (metodo === 'tarjeta') {
+        // Aquí pondrías tu enlace de Stripe real
+        window.location.href = "https://buy.stripe.com/tu_enlace_de_pago";
+    } else {
+        alert("Redirigiendo a PayPal...");
+        window.location.href = "https://paypal.me/tu_usuario";
+    }
+}
+
+function enviarPedidoWhatsApp(nombre, direccion, metodo) {
+    let mensaje = `*NUEVO PEDIDO - LA HORMIGA*%0A`;
+    mensaje += `*Cliente:* ${nombre}%0A`;
+    mensaje += `*Dirección:* ${direccion}%0A`;
+    mensaje += `*Pago:* ${metodo}%0A%0A`;
+    mensaje += `*Productos:*%0A`;
+
+    // Asumimos que tienes la variable 'carrito' cargada de localStorage
+    carrito.forEach(item => {
+        mensaje += `- ${item.nombre} x${item.cantidad} (${(item.precio * item.cantidad).toFixed(2)}€)%0A`;
+    });
+
+    const total = document.getElementById('resumen-pago').innerText;
+    mensaje += `%0A*${total}*`;
+
+    window.open(`https://wa.me/34644481567?text=${mensaje}`, '_blank');
+}
