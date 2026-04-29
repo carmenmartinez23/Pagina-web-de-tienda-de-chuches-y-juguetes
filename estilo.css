@@ -292,7 +292,45 @@ textarea { height: 120px; resize: none; }
     color: #888;
     border: 1px dashed #ccc;
 }
-
+/* Estilos específicos para la página de Conócenos */
+.conocenos-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    line-height: 1.8;
+    color: #444;
+}
+.conocenos-container h1 {
+    color: var(--primario);
+    text-align: center;
+    font-size: 2.5rem;
+}
+.valores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+    text-align: center;
+}
+.valor-card {
+    padding: 20px;
+    background: var(--fondo);
+    border-radius: 10px;
+}
+.valor-card h3 {
+    color: var(--primario);
+    margin-bottom: 10px;
+}
+.img-conocenos {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
 footer {
     text-align: center;
     padding: 2rem;
