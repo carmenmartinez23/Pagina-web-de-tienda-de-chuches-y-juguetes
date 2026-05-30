@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - Kiosko La Hormiga</title>
+    <style>
+        :root { --azul: #0076bd; --rosa: #ff66b2; --rojo: #ff4d4d; --amarillo: #ffcc00; --blanco: #ffffff; --gris-oscuro: #333333; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        nav { background-color: var(--blanco); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+        .nav-logo-container { display: flex; align-items: center; gap: 10px; }
+        .nav-logo-mini { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--rojo); background-color: var(--amarillo); }
+        .nav-title { font-weight: bold; color: var(--azul); font-size: 1.1rem; }
+        .menu-links { display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; }
+        .menu-links a { text-decoration: none; color: var(--gris-oscuro); font-weight: 600; font-size: 0.95rem; padding: 8px 12px; border-radius: 8px; }
+        .menu-links a:hover, .menu-links a.active { background-color: var(--azul); color: var(--blanco); }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 3px; background-color: var(--azul); }
+
+        main { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .box-privacidad { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        h1 { color: var(--rojo); }
+        h2 { color: var(--azul); font-size: 1.3rem; margin-top: 30px; }
+        p { line-height: 1.6; color: #666; }
+        footer { text-align: center; padding: 20px; background-color: var(--gris-oscuro); color: var(--blanco); margin-top: 50px; }
+        @media (max-width: 900px) { .menu-toggle { display: flex; } .menu-links { display: none; flex-direction: column; position: absolute; top: 60px; right: 20px; background-color: var(--blanco); box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 8px; padding: 15px; width: 200px; } .menu-links.active { display: flex; } }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-logo-container"><img src="https://via.placeholder.com/120" class="nav-logo-mini"><span class="nav-title">La Hormiga</span></div>
+    <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
+    <ul class="menu-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
+        <li><a href="juguetes.html">Juguetes</a></li>
+        <li><a href="chuches.html">Chuches</a></li>
+        <li><a href="bebidas.html">Bebidas</a></li>
+        <li><a href="papeleria.html">Papelería</a></li>
+        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacta con Nosotros</a></li>
+        <li><a href="privacidad.html" class="active">Política & Privacidad</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="box-privacidad">
+        <h1>Política de Privacidad</h1>
+        <p>Última actualización: Mayo de 2026</p>
+        <p>En el Kiosko La Hormiga de La Algaba nos tomamos muy en serio la confianza de nuestros clientes.</p>
+
+        <h2>1. Información que procesamos</h2>
+        <p>Esta página web es meramente informativa. No almacenamos, registramos ni vendemos datos personales de los usuarios que navegan por el catálogo de productos.</p>
+
+        <h2>2. Formularios de Contacto</h2>
+        <p>Los datos que nos envíes a través de la sección de contacto serán utilizados exclusivamente para responder a tus dudas comerciales o apartar tus encargos en nuestra tienda física.</p>
+    </div>
+</main>
+
+<footer><p>&copy; 2026 Kiosko La Hormiga de La Algaba</p></footer>
+<script>document.getElementById('mobile-menu').addEventListener('click', () => document.getElementById('nav-links').classList.toggle('active'));</script>
+</body>
+</html>

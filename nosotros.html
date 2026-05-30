@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - Kiosko La Hormiga</title>
+    <style>
+        :root { --azul: #0076bd; --rosa: #ff66b2; --rojo: #ff4d4d; --amarillo: #ffcc00; --blanco: #ffffff; --gris-oscuro: #333333; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        nav { background-color: var(--blanco); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+        .nav-logo-container { display: flex; align-items: center; gap: 10px; }
+        .nav-logo-mini { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--rojo); background-color: var(--amarillo); }
+        .nav-title { font-weight: bold; color: var(--azul); font-size: 1.1rem; }
+        .menu-links { display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; }
+        .menu-links a { text-decoration: none; color: var(--gris-oscuro); font-weight: 600; font-size: 0.95rem; padding: 8px 12px; border-radius: 8px; }
+        .menu-links a:hover, .menu-links a.active { background-color: var(--azul); color: var(--blanco); }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 3px; background-color: var(--azul); }
+
+        main { max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .box-info { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--rosa); }
+        h1 { color: var(--azul); }
+        p { line-height: 1.8; color: #555; font-size: 1.1rem; }
+        .destaque-amarillo { background-color: #fffde6; padding: 15px; border-radius: 8px; border-left: 4px solid var(--amarillo); font-weight: 500; }
+        footer { text-align: center; padding: 20px; background-color: var(--gris-oscuro); color: var(--blanco); margin-top: 50px; }
+        @media (max-width: 900px) { .menu-toggle { display: flex; } .menu-links { display: none; flex-direction: column; position: absolute; top: 60px; right: 20px; background-color: var(--blanco); box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 8px; padding: 15px; width: 200px; } .menu-links.active { display: flex; } }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-logo-container"><img src="https://via.placeholder.com/120" class="nav-logo-mini"><span class="nav-title">La Hormiga</span></div>
+    <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
+    <ul class="menu-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
+        <li><a href="juguetes.html">Juguetes</a></li>
+        <li><a href="chuches.html">Chuches</a></li>
+        <li><a href="bebidas.html">Bebidas</a></li>
+        <li><a href="papeleria.html">Papelería</a></li>
+        <li><a href="nosotros.html" class="active">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacta con Nosotros</a></li>
+        <li><a href="privacidad.html">Política & Privacidad</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="box-info">
+        <h1>Nuestra Historia</h1>
+        <p>Bienvenidos al <strong>Kiosko La Hormiga de La Algaba</strong>. Desde nuestros inicios, nos hemos dedicado a endulzar y traer alegría al día a día de todos nuestros vecinos de La Algaba.</p>
+        <p>Trabajamos incansablemente como una pequeña hormiguita para traerte las últimas colecciones de cartas, los juguetes de moda, los snacks más crujientes y los refrescos más fríos en las tardes calurosas.</p>
+        <p class="destaque-amarillo">Nuestro compromiso es ofrecer siempre una sonrisa, un trato familiar y productos de máxima calidad para todas las edades.</p>
+    </div>
+</main>
+
+<footer><p>&copy; 2026 Kiosko La Hormiga de La Algaba</p></footer>
+<script>document.getElementById('mobile-menu').addEventListener('click', () => document.getElementById('nav-links').classList.toggle('active'));</script>
+</body>
+</html>

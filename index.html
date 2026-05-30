@@ -3,33 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/logo.jpeg" type="image/x-icon">
-    <link rel="stylesheet" href="estilo.css" type="text/css">
-    <script src="stylesheet.js"></script>
-    <title>Kiosko la Hormiga | La Algaba</title>
+    <link rel="shortcut icon" href="imagenes/logo.png" type="image/x-icon">
+    <title>Kiosko La Hormiga de La Algaba - Inicio</title>
+    <style>
+        /* --- VARIABLES Y CONFIGURACIÓN DE COLORES --- */
+        :root {
+            --azul: #0076bd;
+            --rosa: #ff66b2;
+            --rojo: #ff4d4d;
+            --amarillo: #ffcc00;
+            --blanco: #ffffff;
+            --gris-oscuro: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: var(--gris-oscuro);
+        }
+
+        /* --- BARRA DE NAVEGACIÓN SUPERIOR --- */
+        nav {
+            background-color: var(--blanco);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo-mini {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--rojo);
+            background-color: var(--amarillo);
+        }
+
+        .nav-title {
+            font-weight: bold;
+            color: var(--azul);
+            font-size: 1.1rem;
+        }
+
+        /* Menú Esquina Superior Derecha */
+        .menu-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-links a {
+            text-decoration: none;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-links a:hover, .menu-links a.active {
+            background-color: var(--azul);
+            color: var(--blanco);
+        }
+
+        /* Hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--azul);
+            border-radius: 2px;
+        }
+
+        /* --- HÉROE / IMAGEN DE PRESENTACIÓN CON CAPA TRANSLÚCIDA --- */
+        .hero {
+            position: relative;
+            /* REEMPLAZA ESTA URL POR LA IMAGEN DE FONDO QUE DESEES */
+            background-image: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--blanco);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Capa negra translúcida */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+
+        .logo-grande {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--amarillo);
+            border: 4px solid var(--rojo);
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            background-color: var(--rosa);
+            color: var(--blanco);
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 0;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- SECCIÓN DE PRODUCTOS DESTACADOS --- */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .seccion-titulo {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--azul);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .seccion-titulo::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--amarillo);
+            margin: 8px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Tarjeta de Producto */
+        .producto-card {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: var(--azul);
+        }
+
+        .badge-nuevo {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--rojo);
+            color: var(--blanco);
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 20px;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .producto-img-container {
+            width: 100%;
+            height: 220px;
+            background-color: #eee;
+            overflow: hidden;
+        }
+
+        .producto-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .producto-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .producto-categoria {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--rosa);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .producto-nombre {
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+        }
+
+        .producto-precio {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--azul);
+            margin-top: auto;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--azul);
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--gris-oscuro);
+            color: var(--blanco);
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVO PARA MÓVILES --- */
+        @media (max-width: 900px) {
+            .menu-toggle { display: flex; }
+            .menu-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background-color: var(--blanco);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+                border-radius: 8px;
+                padding: 15px;
+                gap: 10px;
+                width: 200px;
+            }
+            .menu-links.active { display: flex; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
-<!-- FOTO PRESENTACION -->
-<section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-text">
-        <h1>¡Bienvenidos al Kiosko La Hormiga!</h1>
-        <p class="parrafo_header">¡Bienvenidos al rincón más dulce de La Algaba!
-            <br><br>
-            En nuestra tienda online, lo pequeño se hace grande: elige entre una enorme selección
-            de snacks, golosinas, refrescos y los juguetes favoritos de los más peques.
-            Explora nuestras categorías, aprovecha nuestras ofertas y recibe tus
-            antojos favoritos de forma fácil y segura.
-            <br><br>
-            ¡La Hormiga trabaja para que tú solo disfrutes!</p>
-    </div>
-</section>
 
-<!-- SECCION PRODUCTOS -->
-<main class="container">
-    <h2 style="text-align: center; margin-bottom: 2rem;">Productos Destacados</h2>
-    <div class="productos-grid" id="grid-productos">
+<nav>
+    <div class="nav-logo-container">
+        <img src="https://via.placeholder.com/120" alt="Logo mini" class="nav-logo-mini">
+        <span class="nav-title">La Hormiga</span>
     </div>
+    <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="menu-links" id="nav-links">
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
+        <li><a href="juguetes.html">Juguetes</a></li>
+        <li><a href="chuches.html">Chuches y Snacks</a></li>
+        <li><a href="bebidas.html">Bebidas</a></li>
+        <li><a href="papeleria.html">Papelería</a></li>
+        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacta con Nosotros</a></li>
+        <li><a href="privacidad.html">Política & Privacidad</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <img src="https://via.placeholder.com/120" alt="Logo Kiosko La Hormiga" class="logo-grande">
+        <h1>Kiosko La Hormiga de La Algaba</h1>
+        <p>¡Novedades y Productos Destacados!</p>
+    </div>
+</header>
+
+<main>
+    <h2 class="seccion-titulo">Todos nuestros productos</h2>
+    <div id="loading" class="loading">Cargando productos...</div>
+    <div class="grid-productos" id="contenedor-productos"></div>
 </main>
+
+<footer>
+    <p>&copy; 2026 Kiosko La Hormiga de La Algaba - Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    // Enlace automático a tu Google Sheets
+    const urlGoogleSheets = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSNw27IvTnQIMXfq6Q52uOp7CcYoIrb-h5K5yJbJQYTgAA6bWn3ZAx0jDvwp12CrbpbaC_tXPDYI4yM/pub?output=csv';
+
+    // Lógica menú móvil
+    document.getElementById('mobile-menu').addEventListener('click', () => {
+        document.getElementById('nav-links').classList.toggle('active');
+    });
+
+    async function cargarProductos() {
+        try {
+            const respuesta = await fetch(urlGoogleSheets);
+            const datosTexto = await respuesta.text();
+            const lineas = datosTexto.split(/\r?\n/);
+            const contenedor = document.getElementById('contenedor-productos');
+            document.getElementById('loading').style.display = 'none';
+            contenedor.innerHTML = '';
+
+            for (let i = 1; i < lineas.length; i++) {
+                if (lineas[i].trim() === '') continue;
+                const columnas = lineas[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+
+                const producto = {
+                    id: columnas[0]?.replace(/"/g, '').trim(),
+                    nombre: columnas[1]?.replace(/"/g, '').trim(),
+                    categoria: columnas[2]?.replace(/"/g, '').trim(),
+                    precio: columnas[3]?.replace(/"/g, '').trim(),
+                    imagen: columnas[4]?.replace(/"/g, '').trim(),
+                    nuevo: columnas[5]?.replace(/"/g, '').trim().toLowerCase()
+                };
+
+                const card = document.createElement('div');
+                card.className = 'producto-card';
+
+                let badgeNuevoHTML = '';
+                if (producto.nuevo === 'si' || producto.nuevo === 'sí' || producto.nuevo === 'yes' || producto.nuevo === 'true') {
+                    badgeNuevoHTML = `<span class="badge-nuevo">¡Nuevo!</span>`;
+                }
+
+                const imgUrl = producto.imagen ? producto.imagen : 'https://via.placeholder.com/300x220?text=Sin+Imagen';
+
+                card.innerHTML = `
+                        ${badgeNuevoHTML}
+                        <div class="producto-img-container">
+                            <img src="${imgUrl}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/300x220?text=Error+Imagen'">
+                        </div>
+                        <div class="producto-info">
+                            <span class="producto-categoria">${producto.categoria}</span>
+                            <h3 class="producto-nombre">${producto.nombre}</h3>
+                            <div class="producto-precio"><span>${producto.precio}</span></div>
+                        </div>
+                    `;
+                contenedor.appendChild(card);
+            }
+        } catch (error) {
+            console.error(error);
+            document.getElementById('loading').innerText = 'Error al conectar con el kiosko.';
+        }
+    }
+    window.addEventListener('DOMContentLoaded', cargarProductos);
+</script>
 </body>
 </html>
