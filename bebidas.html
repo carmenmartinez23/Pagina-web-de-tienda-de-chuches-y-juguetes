@@ -16,6 +16,19 @@
         .menu-links { display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; }
         .menu-links a { text-decoration: none; color: var(--gris-oscuro); font-weight: 600; font-size: 0.95rem; padding: 8px 12px; border-radius: 8px; transition: all 0.3s ease; }
         .menu-links a:hover, .menu-links a.active { background-color: var(--azul); color: var(--blanco); }
+                /* Botón de ver carrito */
+        .btn-ver-carrito {
+            background-color: var(--amarillo);
+            color: var(--gris-oscuro);
+            border: 2px solid var(--rojo);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
         .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
         .menu-toggle span { width: 25px; height: 3px; background-color: var(--azul); }
 
@@ -56,7 +69,28 @@
         <li><a href="contacto.html">Contacta con Nosotros</a></li>
         <li><a href="privacidad.html">Política & Privacidad</a></li>
     </ul>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="btn-ver-carrito" id="abrir-carrito">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 </nav>
+<div class="carrito-panel" id="carrito-panel">
+    <div class="carrito-header">
+        <h3>Tu Pedido</h3>
+        <button class="btn-cerrar-carrito" id="cerrar-carrito">✕</button>
+    </div>
+    <div class="carrito-items" id="carrito-items">
+    </div>
+    <div class="carrito-total">
+        <span>Total:</span>
+        <span id="total-precio">0.00€</span>
+    </div>
+    <button class="btn-pagar" id="btn-checkout">Proceder al Pago</button>
+</div>
 
 <header class="categoria-banner">
     <h1 id="titulo-categoria">Categoría</h1>
@@ -71,7 +105,17 @@
 
 <script>
     const urlGoogleSheets = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSNw27IvTnQIMXfq6Q52uOp7CcYoIrb-h5K5yJbJQYTgAA6bWn3ZAx0jDvwp12CrbpbaC_tXPDYI4yM/pub?output=csv';
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let productosMemoria = [];
 
+    document.getElementById('mobile-menu').addEventListener('click', () => {
+        document.getElementById('nav-links').classList.toggle('active');
+    });
+
+    // Controladores del Carrito Lateral
+    const panelCarrito = document.getElementById('carrito-panel');
+    document.getElementById('abrir-carrito').addEventListener('click', () => panelCarrito.classList.add('abierto'));
+    document.getElementById('cerrar-carrito').addEventListener('click', () => panelCarrito.classList.remove('abierto'));
     // --- CONFIGURACIÓN AUTOMÁTICA DE LA CATEGORÍA ---
     // IMPORTANTE: Cambia este texto según el archivo (Ej: "Cartas", "Juguetes", "Chuches", "Bebidas", "Papelería")
     // Debe coincidir exactamente con cómo escribes la categoría en el Excel.
@@ -121,16 +165,19 @@
                 const imgUrl = producto.imagen ? producto.imagen : 'https://via.placeholder.com/300x220?text=Sin+Imagen';
 
                 card.innerHTML = `
-                        ${badgeNuevoHTML}
-                        <div class="producto-img-container">
-                            <img src="${imgUrl}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/300x220?text=Error+Imagen'">
+                    ${badgeNuevoHTML}
+                    <div class="producto-img-container">
+                        <img src="${imgUrl}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/300x220?text=Error+Imagen'">
+                    </div>
+                    <div class="producto-info">
+                        <span class="producto-categoria">${producto.categoria}</span>
+                        <h3 class="producto-nombre">${producto.nombre}</h3>
+                        <div class="producto-precio-accion">
+                            <span class="producto-precio">${producto.precio}</span>
+                            <button class="btn-anadir" onclick="anadirAlCarrito('${producto.id}')">Añadir</button>
                         </div>
-                        <div class="producto-info">
-                            <span class="producto-categoria">${producto.categoria}</span>
-                            <h3 class="producto-nombre">${producto.nombre}</h3>
-                            <div class="producto-precio"><span>${producto.precio}</span></div>
-                        </div>
-                    `;
+                    </div>
+                `;
                 contenedor.appendChild(card);
             }
 
