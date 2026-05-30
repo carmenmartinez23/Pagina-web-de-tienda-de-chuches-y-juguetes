@@ -180,6 +180,7 @@
                 `;
                 contenedor.appendChild(card);
             }
+            actualizarInterfazCarrito();
 
             if(productosEncontrados === 0) {
                 document.getElementById('loading').style.display = 'block';
@@ -190,6 +191,71 @@
             document.getElementById('loading').innerText = 'Error al cargar sección.';
         }
     }
+    function anadirAlCarrito(id) {
+        const prodMatch = productosMemoria.find(p => p.id === id);
+        if (!prodMatch) return;
+
+        const existe = carrito.find(item => item.id === id);
+        if (existe) {
+            existe.cantidad += 1;
+        } else {
+            carrito.push({ ...prodMatch, cantidad: 1 });
+        }
+
+        guardarYActualizar();
+    }
+
+    function eliminarDelCarrito(id) {
+        carrito = carrito.filter(item => item.id !== id);
+        guardarYActualizar();
+    }
+
+    function guardarYActualizar() {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarInterfazCarrito();
+    }
+
+    function actualizarInterfazCarrito() {
+        const contenedorItems = document.getElementById('carrito-items');
+        const contador = document.getElementById('contador-carrito');
+        const totalSpan = document.getElementById('total-precio');
+
+        contenedorItems.innerHTML = '';
+        let total = 0;
+        let totalItems = 0;
+
+        carrito.forEach(item => {
+            // Limpieza de caracteres no numéricos del precio (ej: de "1.50€" a 1.50)
+            const precioNumerico = parseFloat(item.precio.replace(/[^0-9.,]/g, '').replace(',', '.'));
+            if (!isNaN(precioNumerico)) {
+                total += (precioNumerico * item.cantidad);
+            }
+            totalItems += item.cantidad;
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'carrito-item';
+            itemDiv.innerHTML = `
+                <div class="carrito-item-info">
+                    <h4>${item.nombre}</h4>
+                    <small>${item.cantidad}x - ${item.precio}</small>
+                </div>
+                <button class="btn-eliminar-item" onclick="eliminarDelCarrito('${item.id}')">Eliminar</button>
+            `;
+            contenedorItems.appendChild(itemDiv);
+        });
+
+        contador.innerText = totalItems;
+        totalSpan.innerText = total.toFixed(2) + '€';
+    }
+
+    // Evento del botón de proceder al pago
+    document.getElementById('btn-checkout').addEventListener('click', () => {
+        if (carrito.length === 0) {
+            alert('El carrito está vacío.');
+            return;
+        }
+        alert('Para procesar transacciones bancarias reales en producción, es necesario integrar una pasarela certificada (como Stripe o PayPal Checkout) mediante un entorno de servidor.');
+    });
     window.addEventListener('DOMContentLoaded', cargarProductosFiltrados);
 </script>
 </body>
