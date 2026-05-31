@@ -6,91 +6,60 @@
     <link rel="shortcut icon" href="imagenes/logo.png" type="image/x-icon">
     <title>Kiosko La Hormiga - Categoría</title>
     <style>
-        /* [Se mantiene exactamente el mismo bloque CSS de index.html para preservar la identidad visual] */
-        :root { --azul: #0076bd; --rosa: #ff66b2; --rojo: #ff4d4d; --amarillo: #ffcc00; --blanco: #ffffff; --gris-oscuro: #333333; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
-        nav { background-color: var(--blanco); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-        .nav-logo-container { display: flex; align-items: center; gap: 10px; }
-        .nav-logo-mini { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--rojo); background-color: var(--amarillo); }
-        .nav-title { font-weight: bold; color: var(--azul); font-size: 1.1rem; }
-        .menu-links { display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; }
-        .menu-links a { text-decoration: none; color: var(--gris-oscuro); font-weight: 600; font-size: 0.95rem; padding: 8px 12px; border-radius: 8px; transition: all 0.3s ease; }
-        .menu-links a:hover, .menu-links a.active { background-color: var(--azul); color: var(--blanco); }
-                /* Botón de ver carrito */
-        .btn-ver-carrito {
-            background-color: var(--amarillo);
-            color: var(--gris-oscuro);
-            border: 2px solid var(--rojo);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
-        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .menu-toggle span { width: 25px; height: 3px; background-color: var(--azul); }
 
-        header.categoria-banner { background: linear-gradient(135deg, var(--rosa), var(--amarillo)); color: var(--gris-oscuro); padding: 40px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        header.categoria-banner h1 { margin: 0; font-size: 2.5rem; color: var(--azul); text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
+        /* --- ESTILOS EXCLUSIVOS DEL BANNER DE CATEGORÍA --- */
+        header.categoria-banner { 
+            background: linear-gradient(135deg, #ff66b2, #ffcc00); 
+            color: #333333; 
+            padding: 40px 20px; 
+            text-align: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+        }
+        header.categoria-banner h1 { 
+            margin: 0; 
+            font-size: 2.5rem; 
+            color: #0076bd; 
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8); 
+        }
 
+        /* --- SECCIÓN DE PRODUCTOS --- */
         main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .producto-card { background-color: var(--blanco); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; border: 2px solid transparent; position: relative; }
-        .badge-nuevo { position: absolute; top: 15px; left: 15px; background-color: var(--rojo); color: var(--blanco); padding: 6px 12px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; }
+        .producto-card { background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; border: 2px solid transparent; position: relative; }
+        .badge-nuevo { position: absolute; top: 15px; left: 15px; background-color: #ff4d4d; color: #ffffff; padding: 6px 12px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; z-index: 10; }
         .producto-img-container { width: 100%; height: 220px; background-color: #eee; }
         .producto-img { width: 100%; height: 100%; object-fit: cover; }
         .producto-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .producto-categoria { font-size: 0.8rem; text-transform: uppercase; color: var(--rosa); font-weight: bold; margin-bottom: 5px; }
+        .producto-categoria { font-size: 0.8rem; text-transform: uppercase; color: #ff66b2; font-weight: bold; margin-bottom: 5px; }
         .producto-nombre { font-size: 1.3rem; margin: 0 0 10px 0; }
-        .producto-precio { font-size: 1.6rem; font-weight: bold; color: var(--azul); margin-top: auto; }
-        .loading { text-align: center; font-size: 1.5rem; color: var(--azul); font-weight: bold; }
-        footer { text-align: center; padding: 20px; background-color: var(--gris-oscuro); color: var(--blanco); margin-top: 50px; }
-        @media (max-width: 900px) { .menu-toggle { display: flex; } .menu-links { display: none; flex-direction: column; position: absolute; top: 60px; right: 20px; background-color: var(--blanco); box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-radius: 8px; padding: 15px; width: 200px; } .menu-links.active { display: flex; } }
+        .producto-precio-accion { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .producto-precio { font-size: 1.5rem; font-weight: bold; color: #0076bd; }
+        
+        .btn-anadir {
+            background-color: #0076bd;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-anadir:hover { background-color: #ff66b2; }
+
+        .loading { text-align: center; font-size: 1.5rem; color: #0076bd; font-weight: bold; }
+        footer { text-align: center; padding: 20px; background-color: #333333; color: #ffffff; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="nav-logo-container">
-        <img src="https://via.placeholder.com/120" alt="Logo mini" class="nav-logo-mini">
-        <span class="nav-title">La Hormiga</span>
-    </div>
-    <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
-    <ul class="menu-links" id="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="cartas.html" id="m-cartas">Cartas</a></li>
-        <li><a href="juguetes.html" id="m-juguetes">Juguetes</a></li>
-        <li><a href="chuches.html" id="m-chuches">Chuches y Snacks</a></li>
-        <li><a href="bebidas.html" id="m-bebidas">Bebidas</a></li>
-        <li><a href="papeleria.html" id="m-papeleria">Papelería</a></li>
-        <li><a href="nosotros.html">Sobre Nosotros</a></li>
-        <li><a href="contacto.html">Contacta con Nosotros</a></li>
-        <li><a href="privacidad.html">Política & Privacidad</a></li>
-    </ul>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <button class="btn-ver-carrito" id="abrir-carrito">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</nav>
-<div class="carrito-panel" id="carrito-panel">
-    <div class="carrito-header">
-        <h3>Tu Pedido</h3>
-        <button class="btn-cerrar-carrito" id="cerrar-carrito">✕</button>
-    </div>
-    <div class="carrito-items" id="carrito-items">
-    </div>
-    <div class="carrito-total">
-        <span>Total:</span>
-        <span id="total-precio">0.00€</span>
-    </div>
-    <button class="btn-pagar" id="btn-checkout">Proceder al Pago</button>
-</div>
+<div id="contenedor-header"></div>
 
 <header class="categoria-banner">
     <h1 id="titulo-categoria">Categoría</h1>
@@ -104,27 +73,47 @@
 <footer><p>&copy; 2026 Kiosko La Hormiga de La Algaba</p></footer>
 
 <script>
+    // --- 2. FUNCIÓN MÁGICA PARA INYECTAR EL HEADER ---
+    async function incrustarHeader() {
+        try {
+            const respuesta = await fetch('header.html');
+            if (!respuesta.ok) throw new Error("No se pudo cargar header.html");
+            const htmlHeader = await respuesta.text();
+            document.getElementById('contenedor-header').innerHTML = htmlHeader;
+
+            // Activamos las funciones del menú móvil y carrito de header.html
+            document.getElementById('mobile-menu').addEventListener('click', () => {
+                document.getElementById('nav-links').classList.toggle('active');
+            });
+
+            const panelCarrito = document.getElementById('carrito-panel');
+            document.getElementById('abrir-carrito').addEventListener('click', () => panelCarrito.classList.add('abierto'));
+            document.getElementById('cerrar-carrito').addEventListener('click', () => panelCarrito.classList.remove('abierto'));
+
+            document.getElementById('btn-checkout').addEventListener('click', () => {
+                if (carrito.length === 0) {
+                    alert('El carrito está vacío.');
+                    return;
+                }
+                alert('Para procesar transacciones bancarias reales en producción, es necesario integrar una pasarela certificada (como Stripe o PayPal Checkout) mediante un entorno de servidor.');
+            });
+
+            // Pintamos el carrito
+            actualizarInterfazCarrito();
+        } catch (error) {
+            console.error("Error al importar el menú superior:", error);
+        }
+    }
+
+    // --- 3. LÓGICA DE FILTRADO Y GOOGLE SHEETS ---
     const urlGoogleSheets = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSNw27IvTnQIMXfq6Q52uOp7CcYoIrb-h5K5yJbJQYTgAA6bWn3ZAx0jDvwp12CrbpbaC_tXPDYI4yM/pub?output=csv';
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     let productosMemoria = [];
 
-    document.getElementById('mobile-menu').addEventListener('click', () => {
-        document.getElementById('nav-links').classList.toggle('active');
-    });
-
-    // Controladores del Carrito Lateral
-    const panelCarrito = document.getElementById('carrito-panel');
-    document.getElementById('abrir-carrito').addEventListener('click', () => panelCarrito.classList.add('abierto'));
-    document.getElementById('cerrar-carrito').addEventListener('click', () => panelCarrito.classList.remove('abierto'));
-    // --- CONFIGURACIÓN AUTOMÁTICA DE LA CATEGORÍA ---
-    // IMPORTANTE: Cambia este texto según el archivo (Ej: "Cartas", "Juguetes", "Chuches", "Bebidas", "Papelería")
-    // Debe coincidir exactamente con cómo escribes la categoría en el Excel.
-    const categoriaFiltrar = "Cartas";
+    // CAMBIA ESTO EN CADA ARCHIVO: "Cartas", "Juguetes", "Chuches", "Bebidas" o "Papelería"
+    const categoriaFiltrar = "Cartas"; 
 
     document.getElementById('titulo-categoria').innerText = categoriaFiltrar;
-    document.getElementById('mobile-menu').addEventListener('click', () => {
-        document.getElementById('nav-links').classList.toggle('active');
-    });
 
     async function cargarProductosFiltrados() {
         try {
@@ -132,8 +121,11 @@
             const datosTexto = await respuesta.text();
             const lineas = datosTexto.split(/\r?\n/);
             const contenedor = document.getElementById('contenedor-productos');
-            document.getElementById('loading').style.display = 'none';
+            if(document.getElementById('loading')) {
+                document.getElementById('loading').style.display = 'none';
+            }
             contenedor.innerHTML = '';
+            productosMemoria = []; // Limpiamos memoria
 
             let productosEncontrados = 0;
 
@@ -150,7 +142,10 @@
                     nuevo: columnas[5]?.replace(/"/g, '').trim().toLowerCase()
                 };
 
-                // FILTRO INTELIGENTE: Solo dibuja el producto si coincide con la categoría de la página
+                // Guardamos TODOS en memoria para que el botón de añadir funcione
+                productosMemoria.push(producto);
+
+                // FILTRO: Solo mostramos visualmente los de esta categoría
                 if (producto.categoria.toLowerCase() !== categoriaFiltrar.toLowerCase()) continue;
 
                 productosEncontrados++;
@@ -180,17 +175,20 @@
                 `;
                 contenedor.appendChild(card);
             }
-            actualizarInterfazCarrito();
 
-            if(productosEncontrados === 0) {
+            if(productosEncontrados === 0 && document.getElementById('loading')) {
                 document.getElementById('loading').style.display = 'block';
                 document.getElementById('loading').innerText = 'No hay productos disponibles en esta sección por el momento.';
             }
         } catch (error) {
             console.error(error);
-            document.getElementById('loading').innerText = 'Error al cargar sección.';
+            if(document.getElementById('loading')) {
+                document.getElementById('loading').innerText = 'Error al cargar sección.';
+            }
         }
     }
+
+    // --- 4. GESTIÓN DEL CARRITO ---
     function anadirAlCarrito(id) {
         const prodMatch = productosMemoria.find(p => p.id === id);
         if (!prodMatch) return;
@@ -220,12 +218,13 @@
         const contador = document.getElementById('contador-carrito');
         const totalSpan = document.getElementById('total-precio');
 
+        if (!contenedorItems || !contador || !totalSpan) return;
+
         contenedorItems.innerHTML = '';
         let total = 0;
         let totalItems = 0;
 
         carrito.forEach(item => {
-            // Limpieza de caracteres no numéricos del precio (ej: de "1.50€" a 1.50)
             const precioNumerico = parseFloat(item.precio.replace(/[^0-9.,]/g, '').replace(',', '.'));
             if (!isNaN(precioNumerico)) {
                 total += (precioNumerico * item.cantidad);
@@ -248,15 +247,11 @@
         totalSpan.innerText = total.toFixed(2) + '€';
     }
 
-    // Evento del botón de proceder al pago
-    document.getElementById('btn-checkout').addEventListener('click', () => {
-        if (carrito.length === 0) {
-            alert('El carrito está vacío.');
-            return;
-        }
-        alert('Para procesar transacciones bancarias reales en producción, es necesario integrar una pasarela certificada (como Stripe o PayPal Checkout) mediante un entorno de servidor.');
+    // --- 5. ARRANCAR PROCESOS ---
+    window.addEventListener('DOMContentLoaded', async () => {
+        await incrustarHeader();          // Trae el menú y carrito común
+        await cargarProductosFiltrados(); // Filtra y trae los productos de Google Sheets
     });
-    window.addEventListener('DOMContentLoaded', cargarProductosFiltrados);
 </script>
 </body>
 </html>
