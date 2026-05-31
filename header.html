@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+<style>
+    :root {
+        --azul: #0076bd;
+        --rosa: #ff66b2;
+        --rojo: #ff4d4d;
+        --amarillo: #ffcc00;
+        --blanco: #ffffff;
+        --gris-oscuro: #333333;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: var(--gris-oscuro);
+    }
+
+    /* --- BARRA DE NAVEGACIÓN SUPERIOR --- */
+    nav {
+        background-color: var(--blanco);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .nav-logo-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-logo-mini {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--rojo);
+        background-color: var(--amarillo);
+    }
+
+    .nav-title {
+        font-weight: bold;
+        color: var(--azul);
+        font-size: 1.1rem;
+    }
+
+    .menu-links {
+        display: flex;
+        gap: 15px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+    }
+
+    .menu-links a {
+        text-decoration: none;
+        color: var(--gris-oscuro);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .menu-links a:hover, .menu-links a.active {
+        background-color: var(--azul);
+        color: var(--blanco);
+    }
+
+    /* Botón de ver carrito */
+    .btn-ver-carrito {
+        background-color: var(--amarillo);
+        color: var(--gris-oscuro);
+        border: 2px solid var(--rojo);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--azul);
+        border-radius: 2px;
+    }
+
+    /* --- HÉROE / PRESENTACIÓN --- */
+    .hero {
+        position: relative;
+        background-image: url('imagenes/Portada.jpeg');
+        background-size: cover;
+        background-position: center;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--blanco);
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 20px;
+        max-width: 800px;
+    }
+
+    .logo-grande {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: var(--amarillo);
+        border: 4px solid var(--rojo);
+        object-fit: cover;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        margin: 0 0 10px 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .hero p {
+        font-size: 1.4rem;
+        background-color: var(--rosa);
+        color: var(--blanco);
+        padding: 8px 20px;
+        border-radius: 25px;
+        display: inline-block;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    /* --- DISEÑO DEL PANEL DEL CARRITO (SIDEBAR) --- */
+    .carrito-panel {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 350px;
+        height: 100%;
+        background-color: var(--blanco);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        z-index: 2000;
+        transition: right 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        box-sizing: border-box;
+        color: var(--gris-oscuro);
+    }
+
+    .carrito-panel.abierto {
+        right: 0;
+    }
+
+    .carrito-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    .btn-cerrar-carrito {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--rojo);
+    }
+
+    .carrito-items {
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-top: 15px;
+    }
+
+    .carrito-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .carrito-item-info h4 {
+        margin: 0 0 5px 0;
+        font-size: 1rem;
+    }
+
+    .btn-eliminar-item {
+        background: none;
+        border: none;
+        color: var(--rojo);
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .carrito-total {
+        border-top: 2px solid #eee;
+        padding-top: 15px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .btn-pagar {
+        background-color: var(--rojo);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn-pagar:hover {
+        background-color: var(--azul);
+    }
+
+    @media (max-width: 900px) {
+        .menu-toggle { display: flex; }
+        .menu-links {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: var(--blanco);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            padding: 15px;
+            gap: 10px;
+            width: 200px;
+        }
+        .menu-links.active { display: flex; }
+        .hero h1 { font-size: 2rem; }
+        .carrito-panel { width: 100%; right: -100%; }
+    }
+</style>
+
+<nav>
+    <div class="nav-logo-container">
+        <img src="imagenes/logo.png" alt="Logo mini" class="nav-logo-mini">
+        <span class="nav-title">La Hormiga</span>
+    </div>
+    <ul class="menu-links" id="nav-links">
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
+        <li><a href="juguetes.html">Juguetes</a></li>
+        <li><a href="chuches.html">Chuches y Snacks</a></li>
+        <li><a href="bebidas.html">Bebidas</a></li>
+        <li><a href="papeleria.html">Papelería</a></li>
+        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacta con Nosotros</a></li>
+        <li><a href="privacidad.html">Política & Privacidad</a></li>
+    </ul>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="btn-ver-carrito" id="abrir-carrito">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="carrito-panel" id="carrito-panel">
+    <div class="carrito-header">
+        <h3>Tu Pedido</h3>
+        <button class="btn-cerrar-carrito" id="cerrar-carrito">✕</button>
+    </div>
+    <div class="carrito-items" id="carrito-items"></div>
+    <div class="carrito-total">
+        <span>Total:</span>
+        <span id="total-precio">0.00€</span>
+    </div>
+    <button class="btn-pagar" id="btn-checkout">Proceder al Pago</button>
+</div>
+
+<header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <img src="imagenes/logo.png" alt="Logo Kiosko La Hormiga" class="logo-grande">
+        <h1>Kiosko La Hormiga de La Algaba</h1>
+        <p>¡Novedades y Productos Destacados!</p>
+    </div>
+</header>
+</body>
+</html>
