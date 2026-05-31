@@ -109,36 +109,6 @@
     }
 
     /* --- HÉROE / PRESENTACIÓN --- */
-    .hero {
-        position: relative;
-        background-image: url('imagenes/Portada.jpeg');
-        background-size: cover;
-        background-position: center;
-        height: 450px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: var(--blanco);
-    }
-
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        z-index: 1;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        padding: 0 20px;
-        max-width: 800px;
-    }
-
     .logo-grande {
         width: 120px;
         height: 120px;
@@ -148,23 +118,6 @@
         object-fit: cover;
         margin-bottom: 15px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    .hero h1 {
-        font-size: 3rem;
-        margin: 0 0 10px 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .hero p {
-        font-size: 1.4rem;
-        background-color: var(--rosa);
-        color: var(--blanco);
-        padding: 8px 20px;
-        border-radius: 25px;
-        display: inline-block;
-        margin: 0;
-        font-weight: bold;
     }
 
     /* --- DISEÑO DEL PANEL DEL CARRITO (SIDEBAR) --- */
@@ -276,7 +229,6 @@
             width: 200px;
         }
         .menu-links.active { display: flex; }
-        .hero h1 { font-size: 2rem; }
         .carrito-panel { width: 100%; right: -100%; }
     }
 </style>
@@ -319,14 +271,5 @@
     </div>
     <button class="btn-pagar" id="btn-checkout">Proceder al Pago</button>
 </div>
-
-<header class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <img src="imagenes/logo.png" alt="Logo Kiosko La Hormiga" class="logo-grande">
-        <h1>Kiosko La Hormiga de La Algaba</h1>
-        <p>¡Novedades y Productos Destacados!</p>
-    </div>
-</header>
 </body>
 </html>
