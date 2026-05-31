@@ -28,6 +28,7 @@ async function incrustarHeader() {
         console.error("Error al importar el menú superior:", error);
     }
 }
+
 // 2. Lógica de Google Sheets y gestión del Carrito
 const urlGoogleSheets = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSNw27IvTnQIMXfq6Q52uOp7CcYoIrb-h5K5yJbJQYTgAA6bWn3ZAx0jDvwp12CrbpbaC_tXPDYI4yM/pub?output=csv';
 
@@ -40,7 +41,11 @@ async function cargarProductos() {
         const datosTexto = await respuesta.text();
         const lineas = datosTexto.split(/\r?\n/);
         const contenedor = document.getElementById('contenedor-productos');
-        document.getElementById('loading').style.display = 'none';
+        
+        if (document.getElementById('loading')) {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
         contenedor.innerHTML = '';
         productosMemoria = [];
 
@@ -70,24 +75,26 @@ async function cargarProductos() {
             const imgUrl = producto.imagen ? producto.imagen : 'https://via.placeholder.com/300x220?text=Sin+Imagen';
 
             card.innerHTML = `
-                    ${badgeNuevoHTML}
-                    <div class="producto-img-container">
-                        <img src="${imgUrl}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/300x220?text=Error+Imagen'">
+                ${badgeNuevoHTML}
+                <div class="producto-img-container">
+                    <img src="${imgUrl}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/300x220?text=Error+Imagen'">
+                </div>
+                <div class="producto-info">
+                    <span class="producto-categoria">${producto.categoria}</span>
+                    <h3 class="producto-nombre">${producto.nombre}</h3>
+                    <div class="producto-precio-accion">
+                        <span class="producto-precio">${producto.precio}</span>
+                        <button class="btn-anadir" onclick="anadirAlCarrito('${producto.id}')">Añadir</button>
                     </div>
-                    <div class="producto-info">
-                        <span class="producto-categoria">${producto.categoria}</span>
-                        <h3 class="producto-nombre">${producto.nombre}</h3>
-                        <div class="producto-precio-accion">
-                            <span class="producto-precio">${producto.precio}</span>
-                            <button class="btn-anadir" onclick="anadirAlCarrito('${producto.id}')">Añadir</button>
-                        </div>
-                    </div>
-                `;
+                </div>
+            `;
             contenedor.appendChild(card);
         }
     } catch (error) {
         console.error(error);
-        document.getElementById('loading').innerText = 'Error al conectar con el kiosko.';
+        if (document.getElementById('loading')) {
+            document.getElementById('loading').innerText = 'Error al conectar con el kiosko.';
+        }
     }
 }
 
@@ -137,12 +144,12 @@ function actualizarInterfazCarrito() {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'carrito-item';
         itemDiv.innerHTML = `
-                <div class="carrito-item-info">
-                    <h4>${item.nombre}</h4>
-                    <small>${item.cantidad}x - ${item.precio}</small>
-                </div>
-                <button class="btn-eliminar-item" onclick="eliminarDelCarrito('${item.id}')">Eliminar</button>
-            `;
+            <div class="carrito-item-info">
+                <h4>${item.nombre}</h4>
+                <small>${item.cantidad}x - ${item.precio}</small>
+            </div>
+            <button class="btn-eliminar-item" onclick="eliminarDelCarrito('${item.id}')">Eliminar</button>
+        `;
         contenedorItems.appendChild(itemDiv);
     });
 
@@ -150,44 +157,8 @@ function actualizarInterfazCarrito() {
     totalSpan.innerText = total.toFixed(2) + '€';
 }
 
-// --- 5. ARRANCAR PROCESOS ---
+// --- 3. ARRANCAR PROCESOS ---
 window.addEventListener('DOMContentLoaded', async () => {
-    await incrustarHeader();          // Trae el menú y carrito común
-    await cargarProductosFiltrados(); // Filtra y trae los productos de Google Sheets
+    await incrustarHeader(); // Trae el menú y carrito común
+    await cargarProductos(); // Trae e inicializa los productos desde Google Sheets
 });
-
-    // Recupera los datos guardados por la tienda para calcular el total
-    document.addEventListener('DOMContentLoaded', () => {
-        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        let total = 0;
-
-        carrito.forEach(item => {
-            const precioNumerico = parseFloat(item.precio.replace(/[^0-9.,]/g, '').replace(',', '.'));
-            if (!isNaN(precioNumerico)) {
-                total += (precioNumerico * item.cantidad);
-            }
-        });
-
-        document.getElementById('checkout-total').innerText = total.toFixed(2) + '€';
-    });
-
-    // Muestra u oculta los campos de facturación según el checkbox
-    document.getElementById('requiere-factura').addEventListener('change', function() {
-        const seccion = document.getElementById('seccion-facturacion');
-        seccion.style.display = this.checked ? 'block' : 'none';
-        if(this.checked) {
-            document.getElementById('direccion-factura').setAttribute('required', 'true');
-        } else {
-            document.getElementById('direccion-factura').removeAttribute('required');
-        }
-    });
-
-    // Acción al procesar el formulario
-    document.getElementById('form-pedido').addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const formaPago = document.querySelector('input[name="pago"]:checked').value;
-        
-        // Simulación o desvío final dependiendo del método de pago elegido
-        alert(`¡Gracias por tu pedido!\nHas seleccionado el pago con: ${formaPago}.\n\nPara vincular cobros reales en producción de Bizum/Tarjeta/PayPal, necesitarás añadir las claves de entorno o pasarelas correspondientes en tu servidor.`);
-    });
