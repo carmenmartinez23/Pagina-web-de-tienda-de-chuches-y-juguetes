@@ -46,6 +46,7 @@ async function cargarProductos() {
             document.getElementById('loading').style.display = 'none';
         }
         
+        if (!contenedor) return; // Si no estamos en index.html, salimos
         contenedor.innerHTML = '';
         productosMemoria = [];
 
@@ -53,16 +54,45 @@ async function cargarProductos() {
             if (lineas[i].trim() === '') continue;
             const columnas = lineas[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
+            // Mapeo exacto de tus columnas de Excel: id, nombre, categoria, precio, imagen, nuevo, descripcion
             const producto = {
                 id: columnas[0]?.replace(/"/g, '').trim(),
                 nombre: columnas[1]?.replace(/"/g, '').trim(),
                 categoria: columnas[2]?.replace(/"/g, '').trim(),
                 precio: columnas[3]?.replace(/"/g, '').trim(),
                 imagen: columnas[4]?.replace(/"/g, '').trim(),
-                nuevo: columnas[5]?.replace(/"/g, '').trim().toLowerCase()
+                nuevo: columnas[5]?.replace(/"/g, '').trim().toLowerCase(),
+                descripcion: columnas[6]?.replace(/"/g, '').trim() || "Sin descripción disponible por el momento."
             };
 
             productosMemoria.push(producto);
+            // --- VALIDACIÓN DEL FILTRO ---
+            // Comparamos la categoría del Excel con la página en la que estamos
+            let debeMostrar = false;
+
+            if (paginaActual === 'index.html' || paginaActual === '') {
+                // En el inicio se muestra absolutamente todo
+                debeMostrar = true;
+            } else if (paginaActual === 'chucherias.html') {
+                // Muestra si la categoría es chuches, chucherias, chuches y snacks, o snacks
+                if (producto.categoria.includes('chuch') || producto.categoria.includes('snack')) {
+                    debeMostrar = true;
+                }
+            } else if (paginaActual === 'juguetes.html') {
+                if (producto.categoria.includes('Juguete')) debeMostrar = true;
+            } else if (paginaActual === 'bebidas.html') {
+                if (producto.categoria.includes('bebidas')) debeMostrar = true;
+            } else if (paginaActual === 'cartas.html') {
+                if (producto.categoria.includes('carta') || producto.categoria.includes('pokemon')) debeMostrar = true;
+            } else if (paginaActual === 'papeleria.html') {
+                if (producto.categoria.includes('papeleria')) debeMostrar = true;
+            } else {
+                // Por si tienes otras páginas secundarias, por defecto mostramos todo
+                debeMostrar = true;
+            }
+
+            // Si el producto no pertenece a esta sección, saltamos al siguiente sin dibujarlo
+            if (!debeMostrar) continue;
 
             const card = document.createElement('div');
             card.className = 'producto-card';
@@ -74,14 +104,15 @@ async function cargarProductos() {
 
             const imgUrl = producto.imagen ? producto.imagen : 'https://via.placeholder.com/300x220?text=Sin+Imagen';
 
+            // Hemos añadido onclick="verDetalleProducto('${producto.id}')" en la imagen y el título
             card.innerHTML = `
                 ${badgeNuevoHTML}
-                <div class="producto-img-container">
+                <div class="producto-img-container" onclick="verDetalleProducto('${producto.id}')">
                     <img src="${imgUrl}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/300x220?text=Error+Imagen'">
                 </div>
                 <div class="producto-info">
                     <span class="producto-categoria">${producto.categoria}</span>
-                    <h3 class="producto-nombre">${producto.nombre}</h3>
+                    <h3 class="producto-nombre" onclick="verDetalleProducto('${producto.id}')">${producto.nombre}</h3>
                     <div class="producto-precio-accion">
                         <span class="producto-precio">${producto.precio}</span>
                         <button class="btn-anadir" onclick="anadirAlCarrito('${producto.id}')">Añadir</button>
@@ -95,6 +126,50 @@ async function cargarProductos() {
         if (document.getElementById('loading')) {
             document.getElementById('loading').innerText = 'Error al conectar con el kiosko.';
         }
+    }
+}
+
+// --- NUEVA FUNCIÓN: Abre la propia página/vista de especificaciones del producto ---
+function verDetalleProducto(id) {
+    const producto = productosMemoria.find(p => p.id === id);
+    if (!producto) return;
+
+    // Asignamos los datos del Excel a los elementos correspondientes de la ventana modal
+    const modalImg = document.getElementById('modal-img-destino');
+    const modalCat = document.getElementById('modal-cat-destino');
+    const modalNom = document.getElementById('modal-nom-destino');
+    const modalPre = document.getElementById('modal-pre-destino');
+    const modalDesc = document.getElementById('modal-desc-destino');
+
+    if (modalImg) modalImg.src = producto.imagen ? producto.imagen : 'https://via.placeholder.com/300x220?text=Sin+Imagen';
+    if (modalImg) modalImg.alt = producto.nombre;
+    if (modalCat) modalCat.innerText = producto.categoria;
+    if (modalNom) modalNom.innerText = producto.nombre;
+    if (modalPre) modalPre.innerText = producto.precio;
+    if (modalDesc) modalDesc.innerText = producto.descripcion;
+
+    // Abrimos el modal añadiendo la clase 'activo' que maneja la opacidad en tu CSS
+    const modal = document.getElementById('modal-producto');
+    if (modal) modal.classList.add('activo');
+}
+
+// --- NUEVA FUNCIÓN: Escucha los clics para cerrar la ficha del producto ---
+function configurarCierreModal() {
+    const modal = document.getElementById('modal-producto');
+    const btnCerrar = document.getElementById('cerrar-modal');
+
+    if (modal && btnCerrar) {
+        // Cerrar pulsando la '✕'
+        btnCerrar.addEventListener('click', () => {
+            modal.classList.remove('activo');
+        });
+
+        // Cerrar pulsando en el fondo gris translúcido fuera de la tarjeta
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('activo');
+            }
+        });
     }
 }
 
@@ -159,6 +234,7 @@ function actualizarInterfazCarrito() {
 
 // --- 3. ARRANCAR PROCESOS ---
 window.addEventListener('DOMContentLoaded', async () => {
-    await incrustarHeader(); // Trae el menú y carrito común
-    await cargarProductos(); // Trae e inicializa los productos desde Google Sheets
+    await incrustarHeader();       // Trae el menú y carrito común
+    await cargarProductos();       // Trae e inicializa los productos desde Google Sheets
+    configurarCierreModal();       // Enciende la escucha del botón cerrar del modal
 });
