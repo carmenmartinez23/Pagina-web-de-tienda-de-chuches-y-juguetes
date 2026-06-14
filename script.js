@@ -75,15 +75,15 @@ async function cargarProductos() {
                 debeMostrar = true;
             } else if (paginaActual === 'chucherias.html') {
                 // Muestra si la categoría es chuches, chucherias, chuches y snacks, o snacks
-                if (producto.categoria.includes('chuch') || producto.categoria.includes('snack')) {
+                if (producto.categoria.includes('chuches') || producto.categoria.includes('snack')) {
                     debeMostrar = true;
                 }
             } else if (paginaActual === 'juguetes.html') {
-                if (producto.categoria.includes('Juguete')) debeMostrar = true;
+                if (producto.categoria.includes('Juguetes')) debeMostrar = true;
             } else if (paginaActual === 'bebidas.html') {
                 if (producto.categoria.includes('bebidas')) debeMostrar = true;
             } else if (paginaActual === 'cartas.html') {
-                if (producto.categoria.includes('carta') || producto.categoria.includes('pokemon')) debeMostrar = true;
+                if (producto.categoria.includes('cartas') || producto.categoria.includes('pokemon')) debeMostrar = true;
             } else if (paginaActual === 'papeleria.html') {
                 if (producto.categoria.includes('papeleria')) debeMostrar = true;
             } else {
