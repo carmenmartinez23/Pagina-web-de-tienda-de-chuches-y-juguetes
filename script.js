@@ -58,7 +58,6 @@ async function cargarProductos() {
         
         productosMemoria = [];
 
-        // Detectamos el nombre del archivo actual (ej: 'chucherias.html')
         const pathname = window.location.pathname;
         const paginaActual = pathname.substring(pathname.lastIndexOf('/') + 1).toLowerCase();
 
@@ -90,7 +89,7 @@ async function cargarProductos() {
 
             if (paginaActual === 'index.html' || paginaActual === '' || paginaActual === 'inicio.html') {
                 debeMostrar = true; // El inicio muestra todo
-            } else if (paginaActual === 'chucherias.html') {
+            } else if (paginaActual === 'chuches.html') {
                 if (catMinuscula.includes('snacks') || catMinuscula.includes('chuches')) {
                     debeMostrar = true;
                 }
@@ -99,16 +98,17 @@ async function cargarProductos() {
             } else if (paginaActual === 'bebidas.html') {
                 if (catMinuscula.includes('bebida') || catMinuscula.includes('refresco')) debeMostrar = true;
             } else if (paginaActual === 'cartas.html') {
-                if (catMinuscula.includes('cartas') || catMinuscula.includes('pokemon')) debeMostrar = true;
+                if (catMinuscula.includes('cartas')) debeMostrar = true;
             } else if (paginaActual === 'figuras.html') {
                 if (catMinuscula.includes('figuras')) debeMostrar = true;
+            }else if (paginaActual === 'otros.html') {
+                if (catMinuscula.includes('general')) debeMostrar = true;
             } else {
                 debeMostrar = true; 
             }
 
             if (!debeMostrar) continue;
 
-            // Creamos la tarjeta visual
             const card = document.createElement('div');
             card.className = 'producto-card';
 
@@ -143,7 +143,6 @@ async function cargarProductos() {
     }
 }
 
-// --- FUNCIÓN: Abre la propia página/vista de especificaciones del producto ---
 function verDetalleProducto(id) {
     const producto = productosMemoria.find(p => p.id === id);
     if (!producto) return;
@@ -165,7 +164,6 @@ function verDetalleProducto(id) {
     if (modal) modal.classList.add('activo');
 }
 
-// --- FUNCIÓN: Escucha los clics para cerrar la ficha del producto ---
 function configurarCierreModal() {
     const modal = document.getElementById('modal-producto');
     const btnCerrar = document.getElementById('cerrar-modal');

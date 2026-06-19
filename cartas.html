@@ -5,102 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="imagenes/logo.png" type="image/x-icon">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <title>Kiosko La Hormiga - Categoría</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-
-        /* --- ESTILOS EXCLUSIVOS DEL BANNER DE CATEGORÍA --- */
-        header.categoria-banner {
-            background: linear-gradient(135deg, #ff66b2, #ffcc00);
-            color: #333333;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        header.categoria-banner h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: #0076bd;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-        }
-        .hero {
-            position: relative;
-            background-image: url('imagenes/Portada.jpeg');
-            background-size: cover;
-            background-position: center;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--blanco);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 0 20px;
-            max-width: 800px;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            margin: 0 0 10px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            background-color: var(--rosa);
-            color: var(--blanco);
-            padding: 8px 20px;
-            border-radius: 25px;
-            display: inline-block;
-            margin: 0;
-            font-weight: bold;
-        }
-        /* --- SECCIÓN DE PRODUCTOS --- */
-        main { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .producto-card { background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; border: 2px solid transparent; position: relative; }
-        .badge-nuevo { position: absolute; top: 15px; left: 15px; background-color: #ff4d4d; color: #ffffff; padding: 6px 12px; font-size: 0.85rem; font-weight: bold; border-radius: 20px; z-index: 10; }
-        .producto-img-container { width: 100%; height: 220px; background-color: #eee; }
-        .producto-img { width: 100%; height: 100%; object-fit: cover; }
-        .producto-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .producto-categoria { font-size: 0.8rem; text-transform: uppercase; color: #ff66b2; font-weight: bold; margin-bottom: 5px; }
-        .producto-nombre { font-size: 1.3rem; margin: 0 0 10px 0; }
-        .producto-precio-accion { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .producto-precio { font-size: 1.5rem; font-weight: bold; color: #0076bd; }
-
-        .btn-anadir {
-            background-color: #0076bd;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-anadir:hover { background-color: #ff66b2; }
-
-        .loading { text-align: center; font-size: 1.5rem; color: #0076bd; font-weight: bold; }
-        footer { text-align: center; padding: 20px; background-color: #333333; color: #ffffff; margin-top: 50px; }
-    </style>
 </head>
 <body>
 
@@ -117,6 +23,27 @@
 <main>
     <div id="loading" class="loading">Buscando productos de esta sección...</div>
     <div class="grid-productos" id="contenedor-productos"></div>
+    <div class="modal-especificaciones" id="modal-producto">
+        <div class="modal-contenido">
+            <button class="modal-cerrar" id="cerrar-modal">✕</button>
+            <div class="modal-cuerpo">
+                <img src="" alt="" class="modal-img" id="modal-img-destino">
+                <div class="modal-detalles">
+                    <span class="producto-categoria" id="modal-cat-destino">CATEGORÍA</span>
+                    <h3 id="modal-nom-destino">Nombre del Producto</h3>
+                    <span class="producto-precio" id="modal-pre-destino">0.00€</span>
+
+                    <div class="modal-desc-titulo">
+                        Especificaciones del producto:
+                    </div>
+
+                    <p class="modal-txt-especificaciones" id="modal-desc-destino">
+                        Aquí se cargarán los detalles.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer>
