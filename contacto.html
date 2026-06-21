@@ -54,18 +54,18 @@
 <main>
     <div class="formulario-contacto">
         <h1>Cuéntanos qué necesitas</h1>
-        <form action="https://formspree.io/f/mjgdylyg" method="POST" onsubmit="alert('¡Mensaje enviado con éxito al Kiosko!'); return false;">
+        <form action="enviar.php" method="POST" onsubmit="alert('¡Mensaje enviado con éxito al Kiosko!'); return false;">
             <div class="form-group">
                 <label>Tu Nombre</label>
-                <input type="text" required placeholder="Escribe tu nombre">
+                <input type="text" name="nombre" required placeholder="Escribe tu nombre">
             </div>
             <div class="form-group">
                 <label>Correo Electrónico o Teléfono</label>
-                <input type="text" required placeholder="Cómo contactarte">
+                <input type="text" name="email" required placeholder="Cómo contactarte">
             </div>
             <div class="form-group">
                 <label>¿Qué te gustaría decirnos?</label>
-                <textarea rows="5" required placeholder="Escribe aquí tu duda o encargo de productos..."></textarea>
+                <textarea name="mensaje" rows="5" required placeholder="Escribe aquí tu duda o encargo de productos..."></textarea>
             </div>
             <button type="submit">Enviar Mensaje</button>
         </form>
