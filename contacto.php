@@ -1,3 +1,25 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = strip_tags(trim($_POST['nombre']));
+    $email = strip_tags(trim($_POST['email']));
+    $mensaje = strip_tags(trim($_POST['mensaje']));
+
+    $para = "kioskolahormiga@gmail.com";
+    $asunto = "Nuevo mensaje de Pagina web La Hormiga de La Algaba";
+
+    $contenido = "Nombre: $nombre\nContacto: $email\n\nMensaje:\n$mensaje";
+
+    $headers = "From: no-reply@lahormiga.com\r\n";
+    $headers .= "Reply-To: $email\r\n";
+
+    // Intentar enviar a MailHog
+    mail($para, $asunto, $contenido, $headers);
+    
+    // Esto obligará a la página a avisarte que funcionó y recargarse
+    echo "<script>alert('¡PHP ejecutado con éxito! Revisa MailHog.'); window.location.href='contacto.php';</script>";
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,7 +59,7 @@
 <main>
     <div class="formulario-contacto">
         <h1>Cuéntanos qué necesitas</h1>
-        <form action="enviar.php" method="POST" onsubmit="alert('Procesando su mensaje...'); return false;">
+        <form action="contacto.php" method="POST">
             <div class="form-group">
                 <label>Tu Nombre</label>
                 <input type="text" name="nombre" required placeholder="Escribe tu nombre">
